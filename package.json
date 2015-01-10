@@ -1,0 +1,49 @@
+{
+  "name": "we-plugin-menu",
+  "description": "We.js we-plugin-menu",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "dependencies": {
+    "async": "^0.9.0",
+    "lodash": "^2.4.1",
+    "we-helpers": "^0.0.5"
+  },
+  "devDependencies": {
+    "mocha": "^1.18.2",
+    "istanbul": "^0.2.7",
+    "jshint": "^2.5.0",
+    "jscs": "^1.4.5"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "lint": "jshint .",
+    "checkStyle": "jscs .",
+    "pretest": "npm run-script lint && npm run-script checkStyle",
+    "test": "istanbul cover ./node_modules/.bin/_mocha test",
+    "posttest": "istanbul check-coverage && rm -rf coverage",
+    "prepublish": "npm prune"
+  },
+  "keywords": [
+    "we.js",
+    "wejs",
+    "plugin",
+    "sails.js",
+    "menu",
+    "links"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:wejs/we-plugin-menu.git"
+  },
+  "readme": "# We.js Menu plugin\n\n[![Dependency Status](https://david-dm.org/wejs/we-plugin-menu.png)](https://david-dm.org/wejs/we-plugin-menu)\n\n\n## API:\nTODO\n\n## Avaible URLS:\n\nTODO\n\n## How to install:\n\nIn we.js project:\n\n```sh\nnpm install we-plugin-menu --save\n```\n\n#### NPM Info:\n[![NPM](https://nodei.co/npm/we-plugin-menu.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/we-plugin-menu/)\n\n## Copyright and license\n\nCopyright 2013-2014 Alberto Souza <alberto.souza.dev@gmail.com> and contributors , under [the MIT license](LICENSE).\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/wejs/we-plugin-menu/issues"
+  },
+  "homepage": "https://github.com/wejs/we-plugin-menu",
+  "_id": "we-plugin-menu@0.0.1",
+  "_from": "we-plugin-menu@"
+}
