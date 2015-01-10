@@ -11,7 +11,12 @@ module.exports.menu = {
       {
         label: 'Perguntas dos relatos',
         name: 'relato-perguntas'
-      }
+      },
+
+      {
+        label: 'Usuários',
+        name: 'user'
+      }      
 
     ]
   }
