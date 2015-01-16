@@ -5,19 +5,29 @@ module.exports.menu = {
     links: [
       {
         label: 'Vocabulários',
-        name: 'vocabularies'
+        name: 'vocabularies',
       },
 
       {
         label: 'Perguntas dos relatos',
-        name: 'relato-perguntas'
+        name: 'relato-perguntas',
       },
 
       {
         label: 'Usuários',
-        name: 'user'
-      }      
+        name: 'user',
+      }
+    ]
+  },
 
+  moderator: {
+    name: 'Moderator menu',
+
+    links: [
+      {
+        label: 'Usuários',
+        name: 'user',
+      }
     ]
   }
 }
