@@ -14,6 +14,14 @@ module.exports = function loadPlugin(projectPath, Plugin) {
           permission: 'access_admin',
           links: [
             {
+              id: 'adminMenu',
+              text: '<i class="fa fa-bars"></i> '+req.__('menu.find'),
+              href: '/admin/menu',
+              class: null,
+              weight: 2,
+              name: 'admin.menu.find'
+            },
+            {
               id: 'adminUser',
               text: '<i class="fa fa-users"></i> '+req.__('users.link'),
               href: '/admin/user',

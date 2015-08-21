@@ -25,6 +25,7 @@ module.exports = function Model(we) {
       }
     },
     options: {
+      titleField: 'name',
       classMethods: {}
     }
   };
