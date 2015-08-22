@@ -117,9 +117,21 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     namespace: '/admin'
   });
 
+  //metis menu
+  plugin.addJs('metismenu', {
+    type: 'plugin', weight: 10, pluginName: 'we-plugin-menu',
+    path: 'files/public/metismenu/metisMenu.js'
+  });
+  plugin.addCss('metismenu', {
+    type: 'plugin', weight: 10, pluginName: 'we-plugin-menu',
+    path: 'files/public/metismenu/metisMenu.css'
+  });
+
   // set menu class after load menu
   plugin.events.on('we:after:load:plugins', function (we) {
     we.class.Menu = require('./lib/Menu');
+
+    we.events.emit('we-plugin-menu:after:set:menu:class', we);
   });
 
   plugin.hooks.on('we:router:request:after:load:context', function (data, done) {
@@ -144,7 +156,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       );
     }
 
-    done();
+    req.we.hooks.trigger('we-plugin-menu:after:set:core:menus', data, done);
   });
 
   return plugin;
