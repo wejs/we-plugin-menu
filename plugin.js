@@ -8,6 +8,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
   // set plugin configs
   plugin.setConfigs({
     menu: {
+      linkSortAttrs: ['weight', 'id', 'depth', 'parent'],
       adminMenu: function(req) {
         return {
           class: 'nav',
@@ -111,10 +112,24 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     },
   });
 
-  // set admin menu resource
+  // admin menu resource
   plugin.setResource({
     name: 'menu',
     namespace: '/admin'
+  });
+  plugin.setResource({
+    parent: 'menu',
+    name: 'link'
+  });
+
+  plugin.setRoutes({
+    'post /admin/menu/:menuId([0-9]+)/sort-links': {
+      controller    : 'menu',
+      action        : 'sortLinks',
+      model         : 'menu',
+      permission    : 'update_menu',
+      responseType  : 'json'
+    }
   });
 
   //metis menu
@@ -157,6 +172,19 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     }
 
     req.we.hooks.trigger('we-plugin-menu:after:set:core:menus', data, done);
+  });
+
+  plugin.events.on('we:express:set:params', function(data) {
+    // user pre-loader
+    data.express.param('menuId', function (req, res, next, id) {
+      if (!/^\d+$/.exec(String(id))) return res.notFound();
+
+      if (req.method == 'POST') {
+        req.body.menuId = id;
+      }
+
+      next();
+    });
   });
 
   return plugin;

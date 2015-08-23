@@ -1,13 +1,13 @@
 /**
  * We menu helper
  *
- * render one menu from app configs
+ * render one menu
  *
  * usage:  {{#we-menu 'menuName'}} {{/we-menu}}
  */
 
 module.exports = function(we) {
-  return function renderWidget(menu) {
+  return function weMenuHelper(menu) {
     var options = arguments[arguments.length-1];
     var req = options.data.root.req || options.data.root.locals.req;
 

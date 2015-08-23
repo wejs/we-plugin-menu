@@ -1,0 +1,57 @@
+<table class="table table-striped table-hover">
+  <tbody>
+    <tr>
+      <th>ID</th>
+      <td>{{record.id}}</td>
+    </tr>
+    <tr>
+      <th>{{t 'name'}}</th>
+      <td>{{record.name}}</td>
+    </tr>
+    <tr>
+      <th>class</th>
+      <td>{{record.class}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <td colspan="2">
+      {{we-action-edit-btn resourceName record req record.id}}
+      {{we-action-delete-btn resourceName record req record.id}}
+    </td>
+  </tfoot>
+</table>
+
+<h3>{{t 'Links'}}</h3>
+<div class="row">
+  <div class="col-lg-12 actions">
+    {{we-action-create-btn 'link' req record.id}}
+  </div>
+  <div class="col-lg-12">
+    <form class="linkOrderForm" action="/admin/menu/{{record.id}}/sort-links" method="POST">
+      {{#tabledrag id='linkTable' menu=record}}
+        <tr class="draggable">
+          <td>{{tabledrag-indentation depth=depth}}
+            {{{text}}}
+            <input class="id" name="link-{{id}}-id" value="{{id}}" type="hidden" />
+            <input class="row-depth" name="link-{{id}}-depth" value="{{depth}}" type="hidden" />
+          </td>
+          <td>
+            <input class="row-weight" name="link-{{id}}-weight" type="text" value="{{weight}}">
+          </td>
+          <td>
+            <input class="row-parent" name="link-{{id}}-parent" type="text" value="{{parent}}">
+          </td>
+          <td>
+            {{we-action-edit-btn 'link' this ../req menuId id}}
+            {{we-action-delete-btn 'link' this ../req menuId id}}
+          </td>
+        </tr>
+      {{/tabledrag}}
+
+      <div class="actions">
+        <button class="btn btn-primary">{{t 'order.save.btn'}}</button>
+      </div>
+      <input name="redirectTo" type="hidden" value="{{req.url}}">
+    </form>
+  </div>
+</div>
