@@ -146,6 +146,8 @@ module.exports = function loadPlugin(projectPath, Plugin) {
   plugin.events.on('we:after:load:plugins', function (we) {
     we.class.Menu = require('./lib/Menu');
 
+    we.menu = {};
+
     we.events.emit('we-plugin-menu:after:set:menu:class', we);
   });
 
@@ -185,6 +187,58 @@ module.exports = function loadPlugin(projectPath, Plugin) {
 
       next();
     });
+  });
+
+  plugin.hooks.on('we:models:set:joins', function (we, done) {
+
+    we.db.models.menu.addHook('afterCreate', 'addToMenuCache', function (r, opts, done){
+      we.menu[r.name] = r;
+      done();
+    });
+
+    we.db.models.menu.addHook('afterUpdate', 'updateMenuCache', function (r, opts, done){
+      we.menu[r.name] = r;
+      done();
+    });
+
+    we.db.models.menu.addHook('afterDestroy', 'removeFromMenuCache', function (r, opts, done) {
+      delete we.menu[r.name];
+      done();
+    });
+
+    we.db.models.link.addHook('afterCreate', 'addToMenuCache', function (r, opts, done){
+      // update the menu after create link
+      we.db.models.menu.findOne({
+        where: { id: r.menuId },
+        include: [{ all: true }]
+      }).then(function (r){
+        we.menu[r.name] = r;
+        done();
+      }).catch(done);
+    });
+
+    we.db.models.link.addHook('afterDestroy', 'removeFromMenuCache', function (r, opts, done) {
+     // update the menu after delete link
+      we.db.models.menu.findOne({
+        where: { id: r.menuId },
+        include: [{ all: true }]
+      }).then(function (r){
+        we.menu[r.name] = r;
+        done();
+      }).catch(done);
+    });
+
+    we.db.models.menu.findAll({
+      include: [{ all:true }]
+    }).then(function (r){
+      if (!r) return done();
+
+      for (var i = 0; i < r.length; i++) {
+        we.menu[r[i].name] = r[i];
+      }
+
+      done();
+    }).catch(done);
   });
 
   return plugin;

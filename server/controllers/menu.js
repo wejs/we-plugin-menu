@@ -48,8 +48,17 @@ module.exports = {
 
       }, function(err) {
         if (err) return res.serverError(err);
-        if (redirectTo) return res.redirect(redirectTo);
-        res.send();
+
+        // update the menu after sort links
+        req.we.db.models.menu.findOne({
+          where: { id: menu.id },
+          include: [{ all: true }]
+        }).then(function (r){
+          req.we.menu[r.name] = r;
+
+          if (redirectTo) return res.redirect(redirectTo);
+          res.send();
+        }).catch(res.queryError);
       });
     }).catch(res.queryError);
   }
