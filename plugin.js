@@ -189,7 +189,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     });
   });
 
-  plugin.hooks.on('we:models:set:joins', function (we, done) {
+  plugin.hooks.on('we:after:routes:bind', function (we, done) {
 
     we.db.models.menu.addHook('afterCreate', 'addToMenuCache', function (r, opts, done){
       we.menu[r.name] = r;
