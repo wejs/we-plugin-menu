@@ -1,0 +1,18 @@
+<li class="li-submenu">
+  <a {{#if href}}href="{{href}}"{{/if}} {{#if title}}title="{{title}}"{{/if}} {{#if class}}class="{{class}}"{{/if}} style="{{style}}" target="{{target}}" rel="{{rel}}">
+    {{{text}}}
+  </a>
+
+  <ul class="submenu nav nav-pills nav-stacked">
+    {{#each links}}{{#each this}}
+      {{#if text}}
+        {{#if dividerAfter}}<li class="divider"></li>{{/if}}
+        <li>
+          <a {{#if href}}href="{{href}}"{{/if}} {{#if title}}title="{{title}}"{{/if}} {{#if class}}class="{{class}}"{{/if}} style="{{style}}" target="{{target}}" rel="{{rel}}">
+            {{{text}}}
+          </a>
+        </li>
+      {{/if}}
+    {{/each}}{{/each}}
+  </ul>
+</li>
