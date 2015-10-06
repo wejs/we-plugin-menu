@@ -2,21 +2,21 @@
   <tbody>
     <tr>
       <th>ID</th>
-      <td>{{record.id}}</td>
+      <td>{{data.id}}</td>
     </tr>
     <tr>
       <th>{{t 'name'}}</th>
-      <td>{{record.name}}</td>
+      <td>{{data.name}}</td>
     </tr>
     <tr>
       <th>class</th>
-      <td>{{record.class}}</td>
+      <td>{{data.class}}</td>
     </tr>
   </tbody>
   <tfoot>
     <td colspan="2">
-      {{we-action-edit-btn resourceName record req record.id}}
-      {{we-action-delete-btn resourceName record req record.id}}
+      {{we-action-edit-btn resourceName data req data.id}}
+      {{we-action-delete-btn resourceName data req data.id}}
     </td>
   </tfoot>
 </table>
@@ -24,11 +24,11 @@
 <h3>{{t 'Links'}}</h3>
 <div class="row">
   <div class="col-lg-12 actions">
-    {{we-action-create-btn 'link' req record.id}}
+    {{we-action-create-btn 'link' req data.id}}
   </div>
   <div class="col-lg-12">
-    <form class="linkOrderForm" action="/admin/menu/{{record.id}}/sort-links" method="POST">
-      {{#tabledrag id='linkTable' menu=record}}
+    <form class="linkOrderForm" action="/admin/menu/{{data.id}}/sort-links" method="POST">
+      {{#tabledrag id='linkTable' menu=data}}
         <tr class="draggable">
           <td>{{tabledrag-indentation depth=depth}}
             {{{text}}}

@@ -7,13 +7,13 @@
 
 module.exports = {
   update: function update(req, res) {
-    if(!res.locals.record) return res.notFound();
+    if(!res.locals.data) return res.notFound();
 
-    res.locals.record.updateAttributes(req.body)
+    res.locals.data.updateAttributes(req.body)
     .then(function() {
       // update the menu after update link record
       req.we.db.models.menu.findOne({
-        where: { id: res.locals.record.menuId },
+        where: { id: res.locals.data.menuId },
         include: [{ all: true }]
       }).then(function (r){
         req.we.menu[r.name] = r;
@@ -22,7 +22,7 @@ module.exports = {
     }).catch(res.queryError);
   },
   edit: function edit(req, res) {
-    var record = res.locals.record;
+    var record = res.locals.data;
 
     if (req.method === 'POST') {
       if (!record) return res.notFound();
@@ -31,7 +31,7 @@ module.exports = {
       .then(function() {
         // update the menu after update link record
         req.we.db.models.menu.findOne({
-          where: { id: res.locals.record.menuId },
+          where: { id: res.locals.data.menuId },
           include: [{ all: true }]
         }).then(function (r){
           req.we.menu[r.name] = r;
