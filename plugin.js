@@ -37,6 +37,13 @@ module.exports = function loadPlugin(projectPath, Plugin) {
               class: null,
               weight: 5
             },
+            {
+              id: 'adminUrlAlias',
+              text: '<i class="fa fa-random"></i> '+req.__('urlAlias.find'),
+              href: '/admin/urlAlias',
+              class: null,
+              weight: 7
+            }
           ]
         };
       },
