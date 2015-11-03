@@ -180,6 +180,30 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       );
     }
 
+    if (res.locals.user) {
+      res.locals.currentUserMenu =  new req.we.class.Menu({
+        class: 'nav nav-stacked nav-pills', permission: 'find_user',
+        links: [
+          {
+            id: 'view',
+            text: '<i class="fa fa-eye"></i> '+req.__('menu.user.view'),
+            href: res.locals.user.getUrlPathAlias(),
+            class: null,
+            weight: 2,
+            name: 'menu.user.view'
+          },
+          {
+            id: 'edit',
+            text: '<i class="fa fa-edit"></i> '+req.__('menu.user.edit'),
+            href: '/user/'+res.locals.user.id+'/edit',
+            class: null,
+            weight: 4,
+            name: 'menu.user.edit'
+          }
+        ]
+      });
+    }
+
     req.we.hooks.trigger('we-plugin-menu:after:set:core:menus', data, done);
   });
 
