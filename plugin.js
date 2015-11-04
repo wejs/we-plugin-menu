@@ -191,17 +191,20 @@ module.exports = function loadPlugin(projectPath, Plugin) {
             class: null,
             weight: 2,
             name: 'menu.user.view'
-          },
-          {
-            id: 'edit',
-            text: '<i class="fa fa-edit"></i> '+req.__('menu.user.edit'),
-            href: '/user/'+res.locals.user.id+'/edit',
-            class: null,
-            weight: 4,
-            name: 'menu.user.edit'
           }
         ]
       });
+
+      if (req.we.acl.canStatic('update_user', req.userRoleNames)) {
+        res.locals.currentUserMenu.addLink({
+          id: 'edit',
+          text: '<i class="fa fa-edit"></i> '+req.__('menu.user.edit'),
+          href: '/user/'+res.locals.user.id+'/edit',
+          class: null,
+          weight: 4,
+          name: 'menu.user.edit'
+        });
+      }
     }
 
     req.we.hooks.trigger('we-plugin-menu:after:set:core:menus', data, done);
