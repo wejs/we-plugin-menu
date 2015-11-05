@@ -99,21 +99,31 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         };
       },
       unAuthenticatedUserMenu: function(req) {
-        return {
-          class: 'nav navbar-nav navbar-right',
-          links: [{
+        var links = [];
+
+        if (req.we.config.auth.allowLogin) {
+          links.push({
             id: 'login',
             href: '/login',
             text: req.__('Login'),
             class: null,
-            weight: 4
-          }, {
+            weight: 3
+          });
+        }
+
+        if (req.we.config.auth.allowRegister) {
+          links.push({
             id: 'register',
             href: '/signup',
             text: req.__('Register'),
             class: null,
             weight: 5
-          }]
+          });
+        }
+
+        return {
+          class: 'nav navbar-nav navbar-right',
+          links: links
         };
       }
     },
