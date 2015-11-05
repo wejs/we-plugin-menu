@@ -3,7 +3,7 @@
   "description": "We.js menu plugin",
   "version": "0.3.8",
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "plugin.js",
   "dependencies": {},
   "devDependencies": {},
   "engines": {
