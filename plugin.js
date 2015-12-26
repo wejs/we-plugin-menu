@@ -261,6 +261,18 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       }).catch(done);
     });
 
+    we.db.models.link.addHook('afterUpdate', 'updateLinkInMenuCache', function (r, opts, done){
+      // update the menu link after update link
+      // TODO change to only update this link inside the menu
+      we.db.models.menu.findOne({
+        where: { id: r.menuId },
+        include: [{ all: true }]
+      }).then(function (r){
+        we.menu[r.name] = r;
+        done();
+      }).catch(done);
+    });
+
     we.db.models.link.addHook('afterDestroy', 'removeFromMenuCache', function (r, opts, done) {
      // update the menu after delete link
       we.db.models.menu.findOne({
