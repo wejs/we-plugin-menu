@@ -23,7 +23,7 @@ post /admin/menu/:menuId/delete
 
 ```js
 // first create one menu
-var menu = new Menu({ 
+var menu = new we.class.Menu({ 
   id: 'anOptionalId',
   class: 'your-menu-class',
   name: 'menuName',
