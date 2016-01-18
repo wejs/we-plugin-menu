@@ -19,6 +19,62 @@ get /admin/menu/:menuId/post
 get /admin/menu/:menuId/delete
 post /admin/menu/:menuId/delete
 
+## Menu class / prototype:
+
+```js
+// first create one menu
+var menu = new Menu({ 
+  id: 'anOptionalId',
+  class: 'your-menu-class',
+  name: 'menuName',
+  // access is check if menu is rendered with we-menu helper
+  roles: ['authenticated'],
+  permission: 'can_do_something'
+
+});
+
+// Then add links:
+// 
+
+// Add links for add multiple links
+menu.addLinks([
+  {
+      id: 'edit',
+      text: '<i class="fa fa-edit"></i> '+req.__('menu.user.edit'),
+      href: '/user/'+res.locals.user.id+'/edit',
+      class: null,
+      weight: 4,
+      name: 'menu.user.edit'
+  },
+  {
+      id: 'create',
+      text: '<i class="fa fa-edit"></i> '+req.__('menu.user.create'),
+      href: '/user/'+res.locals.user.id+'/criate',
+      class: null,
+      weight: 5,
+      name: 'menu.user.create'
+  },  
+);
+
+// or add one linke
+menu.addLink({
+  id: 'edit',
+  text: '<i class="fa fa-edit"></i> '+req.__('menu.user.edit'),
+  href: '/user/'+res.locals.user.id+'/edit',
+  class: null,
+  weight: 4,
+  name: 'menu.user.edit'
+});
+
+```
+
+### For render your menu use:
+
+```hbs
+<!-- locals is res.locals object -->
+{{we-menu menu locals=this}}
+```
+
 ## Hooks and events:
 
 Hooks and events avaible in this plugin

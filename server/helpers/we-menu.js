@@ -3,13 +3,16 @@
  *
  * render one menu
  *
- * usage:  {{#we-menu 'menuName'}} {{/we-menu}}
+ * usage:  {{{we-menu menuObject}}}
  */
 
 module.exports = function(we) {
   return function weMenuHelper(menu) {
     var options = arguments[arguments.length-1];
-    var req = options.data.root.req || options.data.root.locals.req;
+    // get res.locals
+    var locals = options.hash.locals || options.hash.root;
+    // get req
+    var req = locals.req;
 
     if (!(menu instanceof we.class.Menu) )
       menu = new we.class.Menu(menu);
