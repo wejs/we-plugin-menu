@@ -10,7 +10,7 @@ module.exports = function(we) {
   return function weMenuHelper(menu) {
     var options = arguments[arguments.length-1];
     // get res.locals
-    var locals = options.hash.locals || options.hash.root;
+    var locals = options.hash.locals || options.data.root.locals || options.data.root;
     // get req
     var req = locals.req;
 
