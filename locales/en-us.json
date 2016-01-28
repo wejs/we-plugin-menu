@@ -1,5 +1,6 @@
 {
   "menu.user.edit": "Edit profile",
   "menu.user.view": "View profile",
-  "widget.usermenu.label": "Current user profile menu"
+  "widget.usermenu.label": "Current user profile menu",
+  "widget.menu.label": "Menu"
 }
