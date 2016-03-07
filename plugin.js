@@ -69,8 +69,17 @@ module.exports = function loadPlugin(projectPath, Plugin) {
           {
             id: 'userProfileEdit',
             href: '/user/' + req.user.id + '/edit',
-            text: '<i class="glyphicon glyphicon-pencil text-primary"></i> '+
+            text: '<i class="glyphicon glyphicon-pencil"></i> '+
               req.__('user.profile.edit'),
+            class: null,
+            weight: 5,
+            parent: 'user'
+          },
+          {
+            id: 'userProfileEditPrivacity',
+            href: '/user/' + req.user.id + '/edit/privacity',
+            text: '<i class="glyphicon glyphicon-alert"></i> '+
+              req.__('Privacity'),
             class: null,
             weight: 5,
             parent: 'user'
