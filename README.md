@@ -30,8 +30,10 @@ var menu = new we.class.Menu({
   name: 'menuName',
   // access is check if menu is rendered with we-menu helper
   roles: ['authenticated'],
-  permission: 'can_do_something'
-
+  // show this menu only for users with the permission:
+  permission: 'can_do_something', // default: null
+  // add active class in partent links if curent page?
+  setParentLinkActiveClass: false // default false
 });
 
 // Then add links:
