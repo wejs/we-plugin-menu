@@ -115,7 +115,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
             id: 'login',
             href: '/login',
             text: req.__('Login'),
-            class: null,
+            class: 'login-link',
             weight: 3
           });
         }
@@ -125,7 +125,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
             id: 'register',
             href: '/signup',
             text: req.__('Register'),
-            class: null,
+            class: 'register-link',
             weight: 5
           });
         }

@@ -4,8 +4,6 @@
   "version": "1.1.0",
   "license": "MIT",
   "main": "plugin.js",
-  "dependencies": {},
-  "devDependencies": {},
   "engines": {
     "node": ">=0.10.0"
   },
@@ -25,5 +23,6 @@
   "bugs": {
     "url": "https://github.com/wejs/we-plugin-menu/issues"
   },
+  "author": "Alberto Souza <contato@albertosouza.net>",
   "homepage": "https://github.com/wejs/we-plugin-menu"
 }
