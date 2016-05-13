@@ -8,6 +8,8 @@
 
 module.exports = function(we) {
   return function weMenuHelper(menu) {
+    if (!menu) return '';
+
     var options = arguments[arguments.length-1];
     // get res.locals
     var locals = options.hash.locals || options.data.root.locals || options.data.root;
@@ -33,6 +35,6 @@ module.exports = function(we) {
         return '';
     }
 
-    return new we.hbs.SafeString( menu.render( req ) );
+    return new we.hbs.SafeString( menu.render( req, options.hash ) );
   };
 };
