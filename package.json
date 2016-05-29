@@ -1,7 +1,7 @@
 {
   "name": "we-plugin-menu",
   "description": "We.js menu plugin",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "main": "plugin.js",
   "engines": {
