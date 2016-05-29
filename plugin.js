@@ -59,7 +59,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
           },
           {
             id: 'userProfileView',
-            href: req.we.router.alias.resolvePath('/user/' + req.user.id),
+            href: '/user/' + req.user.id,
             text: '<i class="glyphicon glyphicon-user"></i> '+
               req.__('user.profile.view'),
             class: null,
