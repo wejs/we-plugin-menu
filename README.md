@@ -1,12 +1,14 @@
 # We.js Menu plugin
 
-> Add menu features to your project
+Add menu features to your project
 
 [![Dependency Status](https://david-dm.org/wejs/we-plugin-menu.png)](https://david-dm.org/wejs/we-plugin-menu)
 
-## Requirements in project:
+## Installation
 
-- we-core
+```sh
+we i we-plugin-menu
+```
 
 ## Avaible URLS:
 ```
@@ -117,6 +119,6 @@ npm install we-plugin-menu --save
 #### NPM Info:
 [![NPM](https://nodei.co/npm/we-plugin-menu.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/we-plugin-menu/)
 
-## Copyright and license
+## License
 
-Copyright 2013-2014 Alberto Souza <alberto.souza.99@gmail.com> and contributors , under [the MIT license](LICENSE).
+Under [the MIT license](https://github.com/wejs/we/blob/master/LICENSE.md).
