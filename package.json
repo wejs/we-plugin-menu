@@ -1,7 +1,7 @@
 {
   "name": "we-plugin-menu",
   "description": "We.js menu plugin",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "license": "MIT",
   "main": "plugin.js",
   "keywords": [
@@ -9,6 +9,5 @@
   ],
   "repository": "wejs/we-plugin-menu",
   "author": "Alberto Souza <contato@albertosouza.net>",
-  "homepage": "https://github.com/wejs/we-plugin-menu",
-  "license": "MIT"
+  "homepage": "https://github.com/wejs/we-plugin-menu"
 }
