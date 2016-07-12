@@ -12,14 +12,20 @@ module.exports = {
     res.locals.data.updateAttributes(req.body)
     .then(function() {
       // update the menu after update link record
-      req.we.db.models.menu.findOne({
+      return req.we.db.models.menu
+      .findOne({
         where: { id: res.locals.data.menuId },
         include: [{ all: true }]
-      }).then(function (r){
+      })
+      .then(function (r) {
+
         req.we.menu[r.name] = r;
-        return res.updated();
-      }).catch(res.queryError);
-    }).catch(res.queryError);
+        res.updated();
+
+        return null;
+      })
+    })
+    .catch(res.queryError);
   },
   edit: function edit(req, res) {
     var record = res.locals.data;
@@ -30,14 +36,20 @@ module.exports = {
       record.updateAttributes(req.body)
       .then(function() {
         // update the menu after update link record
-        req.we.db.models.menu.findOne({
+        return req.we.db.models.menu
+        .findOne({
           where: { id: res.locals.data.menuId },
           include: [{ all: true }]
-        }).then(function (r){
+        })
+        .then(function (r) {
+
           req.we.menu[r.name] = r;
-          return res.updated();
-        }).catch(res.queryError);
-      }).catch(res.queryError);
+          res.updated();
+
+          return null;
+        })
+      })
+      .catch(res.queryError);
     } else {
       res.ok();
     }

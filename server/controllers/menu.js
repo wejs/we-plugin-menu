@@ -17,7 +17,8 @@ module.exports = {
 
     req.we.db.models.menu.findOne({
       where: { id: req.params.menuId}, include: { all: true }
-    }).then(function (menu) {
+    })
+    .then(function (menu) {
       if (!menu) return res.notFound();
 
       var itensToSave = {};
@@ -53,13 +54,18 @@ module.exports = {
         req.we.db.models.menu.findOne({
           where: { id: menu.id },
           include: [{ all: true }]
-        }).then(function (r){
+        })
+        .then(function (r){
           req.we.menu[r.name] = r;
 
           if (redirectTo) return res.redirect(redirectTo);
           res.send();
-        }).catch(res.queryError);
+
+          return null;
+        })
+        .catch(res.queryError);
       });
-    }).catch(res.queryError);
+    })
+    .catch(res.queryError);
   }
 };

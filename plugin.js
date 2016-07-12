@@ -264,10 +264,13 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       we.db.models.menu.findOne({
         where: { id: r.menuId },
         include: [{ all: true }]
-      }).then(function (r){
+      })
+      .then(function (r){
         we.menu[r.name] = r;
         done();
-      }).catch(done);
+        return null;
+      })
+      .catch(done);
     });
 
     we.db.models.link.addHook('afterUpdate', 'updateLinkInMenuCache', function (r, opts, done){
@@ -276,10 +279,13 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       we.db.models.menu.findOne({
         where: { id: r.menuId },
         include: [{ all: true }]
-      }).then(function (r){
+      })
+      .then(function (r){
         we.menu[r.name] = r;
         done();
-      }).catch(done);
+        return null;
+      })
+      .catch(done);
     });
 
     we.db.models.link.addHook('afterDestroy', 'removeFromMenuCache', function (r, opts, done) {
@@ -287,15 +293,19 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       we.db.models.menu.findOne({
         where: { id: r.menuId },
         include: [{ all: true }]
-      }).then(function (r){
+      })
+      .then(function (r){
         we.menu[r.name] = r;
         done();
-      }).catch(done);
+        return null;
+      })
+      .catch(done);
     });
 
     we.db.models.menu.findAll({
       include: [{ all:true }]
-    }).then(function (r){
+    })
+    .then(function (r){
       if (!r) return done();
 
       for (var i = 0; i < r.length; i++) {
@@ -303,7 +313,9 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       }
 
       done();
-    }).catch(done);
+      return null;
+    })
+    .catch(done);
   });
 
   return plugin;
