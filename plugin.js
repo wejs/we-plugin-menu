@@ -214,7 +214,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         ]
       });
 
-      if (req.we.acl.canStatic('update_user', req.userRoleNames)) {
+      if (req.we.acl && req.we.acl.canStatic('update_user', req.userRoleNames)) {
         res.locals.currentUserMenu.addLink({
           id: 'edit',
           text: '<i class="fa fa-edit"></i> '+req.__('menu.user.edit'),

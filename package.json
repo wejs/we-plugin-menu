@@ -9,5 +9,10 @@
   ],
   "repository": "wejs/we-plugin-menu",
   "author": "Alberto Souza <contato@albertosouza.net>",
-  "homepage": "https://github.com/wejs/we-plugin-menu"
+  "homepage": "https://github.com/wejs/we-plugin-menu",
+  "wejs": {
+    "dependencies": {
+      "we-plugin-acl": true
+    }
+  }
 }
