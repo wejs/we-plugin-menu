@@ -140,8 +140,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
 
   // admin menu resource
   plugin.setResource({
-    name: 'menu',
-    namespace: '/admin'
+    name: 'menu'
   });
   plugin.setResource({
     parent: 'menu',
@@ -156,16 +155,6 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       permission    : 'update_menu',
       responseType  : 'json'
     }
-  });
-
-  //metis menu
-  plugin.addJs('metismenu', {
-    type: 'plugin', weight: 10, pluginName: 'we-plugin-menu',
-    path: 'files/public/metismenu/metisMenu.js'
-  });
-  plugin.addCss('metismenu', {
-    type: 'plugin', weight: 10, pluginName: 'we-plugin-menu',
-    path: 'files/public/metismenu/metisMenu.css'
   });
 
   // set menu class after load menu
