@@ -1,5 +1,5 @@
 module.exports = function menuWidget(projectPath, Widget) {
-  var widget = new Widget('menu', __dirname);
+  const widget = new Widget('menu', __dirname);
 
   widget.afterSave = function afterSave(req, res, next) {
     if (!req.body.configuration) {
@@ -10,10 +10,10 @@ module.exports = function menuWidget(projectPath, Widget) {
   };
 
   widget.formMiddleware = function formMiddleware(req, res, next) {
-    var we = req.getWe();
+    const we = req.getWe();
     res.locals.menu = we.config.menu;
     next();
-  }
+  };
 
   return widget;
 };

@@ -1,4 +1,4 @@
-# We.js Menu plugin
+# We.js menu and links plugin
 
 Add menu features to your project
 
@@ -8,18 +8,6 @@ Add menu features to your project
 
 ```sh
 we i we-plugin-menu
-```
-
-## Avaible URLS:
-```
-get /admin/menu
-get /admin/menu/create
-post /admin/menu/create
-get /admin/menu/:menuId
-get /admin/menu/:menuId/edit
-get /admin/menu/:menuId/post
-get /admin/menu/:menuId/delete
-post /admin/menu/:menuId/delete
 ```
 
 ## Menu class / prototype:

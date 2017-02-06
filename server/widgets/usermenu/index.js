@@ -5,28 +5,28 @@
  */
 
 module.exports = function (projectPath, Widget) {
-  var widget = new Widget('usermenu', __dirname);
+  const widget = new Widget('usermenu', __dirname);
 
   // custom widget method
   widget.checkIfIsValidContext = function checkIfIsValidContext(context) {
     if (!context || context.indexOf('user-') !== 0) {
       return false;
     } else {
-      return true
+      return true;
     }
-  }
+  };
 
   widget.isAvaibleForSelection = function isAvaibleForSelection(req) {
     if (!req.header) return false;
 
-    var reqContext = req.header('wejs-context');
+    const reqContext = req.header('wejs-context');
 
     if (widget.checkIfIsValidContext(reqContext)) {
       return true;
     } else {
       return false;
     }
-  }
+  };
 
   widget.beforeSave = function widgetBeforeSave(req, res, next) {
     // check context in create
@@ -39,7 +39,7 @@ module.exports = function (projectPath, Widget) {
 
 
   widget.renderVisibilityField = function renderVisibilityField(widget, context, req, res) {
-    var field = '';
+    let field = '';
 
     // visibility field
     field += '<div class="form-group"><div class="row">' +

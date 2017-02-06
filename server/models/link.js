@@ -7,7 +7,7 @@
  */
 
 module.exports = function Model(we) {
-  var model = {
+  return {
     definition: {
       href: { type:  we.db.Sequelize.TEXT, formFieldType: 'text' },
 
@@ -27,6 +27,4 @@ module.exports = function Model(we) {
       parent: { type:  we.db.Sequelize.INTEGER }
     }
   };
-
-  return model;
 };

@@ -6,8 +6,8 @@
  */
 
 module.exports = {
-  sortLinks: function sortLinks(req, res) {
-    var redirectTo = req.we.utils.getRedirectUrl(req, res);
+  sortLinks(req, res) {
+    let redirectTo = req.we.utils.getRedirectUrl(req, res);
     if (redirectTo) res.locals.redirectTo = redirectTo;
 
     if (!req.body) {
@@ -15,16 +15,17 @@ module.exports = {
       return res.send();
     }
 
-    req.we.db.models.menu.findOne({
+    req.we.db.models.menu
+    .findOne({
       where: { id: req.params.menuId}, include: { all: true }
     })
-    .then(function (menu) {
+    .then( (menu)=> {
       if (!menu) return res.notFound();
 
-      var itensToSave = {};
-      var linkAttrs;
+      let itensToSave = {},
+        linkAttrs;
 
-      for (var item in req.body) {
+      for (let item in req.body) {
         linkAttrs = item.split('-');
 
         if (linkAttrs.length !== 3) continue;
@@ -39,23 +40,26 @@ module.exports = {
         itensToSave[linkAttrs[1]][linkAttrs[2]] = req.body[item];
       }
 
-      req.we.utils.async.each(menu.links, function(link, next) {
+      req.we.utils.async.each(menu.links, (link, next)=> {
         if (!itensToSave[link.id]) return next();
 
         link.updateAttributes(itensToSave[link.id])
-        .then(function() {
+        .then( ()=> {
           next();
-        }).catch(next);
+          return null;
+        })
+        .catch(next);
 
-      }, function(err) {
+      }, (err)=> {
         if (err) return res.serverError(err);
 
         // update the menu after sort links
-        req.we.db.models.menu.findOne({
+        req.we.db.models.menu
+        .findOne({
           where: { id: menu.id },
           include: [{ all: true }]
         })
-        .then(function (r){
+        .then( (r)=> {
           req.we.menu[r.name] = r;
 
           if (redirectTo) return res.redirect(redirectTo);

@@ -3,13 +3,13 @@
  */
 
 module.exports = function loadPlugin(projectPath, Plugin) {
-  var plugin = new Plugin(__dirname);
+  const plugin = new Plugin(__dirname);
 
   // set plugin configs
   plugin.setConfigs({
     menu: {
       linkSortAttrs: ['weight', 'id', 'depth', 'parent'],
-      adminMenu: function(req) {
+      adminMenu(req) {
         return {
           class: 'nav',
           permission: 'access_admin',
@@ -47,7 +47,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
           ]
         };
       },
-      authenticatedUserMenu: function(req) {
+      authenticatedUserMenu(req) {
         return {
           class: 'nav navbar-nav navbar-right',
           links: [{
@@ -107,8 +107,8 @@ module.exports = function loadPlugin(projectPath, Plugin) {
           ]
         };
       },
-      unAuthenticatedUserMenu: function(req) {
-        var links = [];
+      unAuthenticatedUserMenu(req) {
+        const links = [];
 
         if (req.we.config.auth.allowLogin) {
           links.push({
@@ -138,10 +138,11 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     },
   });
 
-  // admin menu resource
+  // menu resource:
   plugin.setResource({
     name: 'menu'
   });
+  // menu link resource:
   plugin.setResource({
     parent: 'menu',
     name: 'link'
@@ -167,8 +168,8 @@ module.exports = function loadPlugin(projectPath, Plugin) {
   });
 
   plugin.hooks.on('we:router:request:after:load:context', function (data, done) {
-    var res = data.res;
-    var req = data.req;
+    const res = data.res,
+      req = data.req;
 
     // set user menu
     if (req.isAuthenticated()) {
@@ -220,7 +221,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
 
   plugin.events.on('we:express:set:params', function(data) {
     // user pre-loader
-    data.express.param('menuId', function (req, res, next, id) {
+    data.express.param('menuId', (req, res, next, id)=> {
       if (!/^\d+$/.exec(String(id))) return res.notFound();
 
       if (req.method == 'POST') {
@@ -232,6 +233,8 @@ module.exports = function loadPlugin(projectPath, Plugin) {
   });
 
   plugin.hooks.on('we:after:routes:bind', function (we, done) {
+    // skip menu cache if views plugin dont are instaled:
+    if (!we.plugins['we-plugin-view']) return done();
 
     we.db.models.menu.addHook('afterCreate', 'addToMenuCache', function (r, opts, done){
       we.menu[r.name] = r;
@@ -254,7 +257,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         where: { id: r.menuId },
         include: [{ all: true }]
       })
-      .then(function (r){
+      .then( (r)=> {
         we.menu[r.name] = r;
         done();
         return null;
@@ -269,7 +272,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         where: { id: r.menuId },
         include: [{ all: true }]
       })
-      .then(function (r){
+      .then( (r)=> {
         we.menu[r.name] = r;
         done();
         return null;
@@ -283,7 +286,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         where: { id: r.menuId },
         include: [{ all: true }]
       })
-      .then(function (r){
+      .then( (r)=> {
         we.menu[r.name] = r;
         done();
         return null;
@@ -294,10 +297,10 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     we.db.models.menu.findAll({
       include: [{ all:true }]
     })
-    .then(function (r){
+    .then( (r)=> {
       if (!r) return done();
 
-      for (var i = 0; i < r.length; i++) {
+      for (let i = 0; i < r.length; i++) {
         we.menu[r[i].name] = r[i];
       }
 

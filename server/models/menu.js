@@ -7,7 +7,7 @@
  */
 
 module.exports = function Model(we) {
-  var model = {
+  return {
     definition: {
       name: {
         type: we.db.Sequelize.STRING,
@@ -29,6 +29,4 @@ module.exports = function Model(we) {
       classMethods: {}
     }
   };
-
-  return model;
 };
