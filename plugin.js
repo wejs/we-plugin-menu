@@ -144,7 +144,6 @@ module.exports = function loadPlugin(projectPath, Plugin) {
   });
   // menu link resource:
   plugin.setResource({
-    parent: 'menu',
     name: 'link'
   });
 
@@ -217,19 +216,6 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     }
 
     req.we.hooks.trigger('we-plugin-menu:after:set:core:menus', data, done);
-  });
-
-  plugin.events.on('we:express:set:params', function(data) {
-    // user pre-loader
-    data.express.param('menuId', (req, res, next, id)=> {
-      if (!/^\d+$/.exec(String(id))) return res.notFound();
-
-      if (req.method == 'POST') {
-        req.body.menuId = id;
-      }
-
-      next();
-    });
   });
 
   plugin.hooks.on('we:after:routes:bind', function (we, done) {
