@@ -21,7 +21,8 @@ module.exports = function Model(we) {
     associations: {
       links: {
         type: 'hasMany',
-        model: 'link'
+        model: 'link',
+        inverse: 'menu'
       }
     },
     options: {

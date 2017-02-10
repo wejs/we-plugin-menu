@@ -26,7 +26,13 @@ module.exports = function Model(we) {
       weight: { type:  we.db.Sequelize.INTEGER },
       parent: { type:  we.db.Sequelize.INTEGER }
     },
-    associations: {},
+    associations: {
+      menu: {
+        type: 'belongsTo',
+        model: 'menu',
+        inverse: 'links'
+      }
+    },
     options: {
       classMethods: {
         /**
