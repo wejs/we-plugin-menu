@@ -1,5 +1,5 @@
 /**
- * We.js we-plugin-menu main file
+ * We.js menu plugin main file
  */
 
 module.exports = function loadPlugin(projectPath, Plugin) {
@@ -284,7 +284,10 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       include: [{ all:true }]
     })
     .then( (r)=> {
-      if (!r) return done();
+      if (!r) {
+        done();
+        return null;
+      }
 
       for (let i = 0; i < r.length; i++) {
         we.menu[r[i].name] = r[i];

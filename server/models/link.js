@@ -20,7 +20,12 @@ module.exports = function Model(we) {
       target: { type:  we.db.Sequelize.STRING },
       rel: { type:  we.db.Sequelize.STRING },
 
-      key: { type:  we.db.Sequelize.STRING(10) },
+      type: { type: we.db.Sequelize.STRING, size: 200 },
+      modelName: { type: we.db.Sequelize.STRING, size: 200 },
+      modelId: { type:  we.db.Sequelize.STRING, size: 42 },
+      userRole: { type: we.db.Sequelize.STRING, size: 200 },
+
+      key: { type:  we.db.Sequelize.STRING, size: 20 },
 
       depth: { type:  we.db.Sequelize.INTEGER },
       weight: { type:  we.db.Sequelize.INTEGER },

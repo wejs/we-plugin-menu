@@ -20,7 +20,10 @@ module.exports = {
       where: { id: req.params.menuId}, include: { all: true }
     })
     .then( (menu)=> {
-      if (!menu) return res.notFound();
+      if (!menu) {
+        res.notFound();
+        return null;
+      }
 
       let itensToSave = {},
         linkAttrs;
@@ -62,13 +65,19 @@ module.exports = {
         .then( (r)=> {
           req.we.menu[r.name] = r;
 
-          if (redirectTo) return res.redirect(redirectTo);
+          if (redirectTo) {
+            res.redirect(redirectTo);
+            return null;
+          }
+
           res.send();
 
           return null;
         })
         .catch(res.queryError);
       });
+
+      return null;
     })
     .catch(res.queryError);
   }
