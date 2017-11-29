@@ -15,6 +15,8 @@ module.exports = {
       return res.send();
     }
 
+    const plugin = req.we.plugins['we-plugin-menu'];
+
     req.we.db.models.menu
     .findOne({
       where: { id: req.params.menuId}, include: { all: true }
@@ -65,14 +67,17 @@ module.exports = {
         .then( (r)=> {
           req.we.menu[r.name] = r;
 
-          if (redirectTo) {
-            res.redirect(redirectTo);
+          plugin.publishUpdate( ()=> {
+            if (redirectTo) {
+              res.redirect(redirectTo);
+              return null;
+            }
+
+            res.send();
+
             return null;
-          }
+          });
 
-          res.send();
-
-          return null;
         })
         .catch(res.queryError);
       });

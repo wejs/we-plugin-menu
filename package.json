@@ -14,5 +14,8 @@
     "dependencies": {
       "we-plugin-acl": true
     }
+  },
+  "dependencies": {
+    "chokidar": "^1.7.0"
   }
 }

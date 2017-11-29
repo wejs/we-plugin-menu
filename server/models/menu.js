@@ -27,7 +27,19 @@ module.exports = function Model(we) {
     },
     options: {
       titleField: 'name',
-      classMethods: {}
+      classMethods: {},
+
+      hooks: {
+        afterCreate(r, opts, done) {
+          we.plugins['we-plugin-menu'].publishUpdate(done);
+        },
+        afterUpdate(r, opts, done) {
+          we.plugins['we-plugin-menu'].publishUpdate(done);
+        },
+        afterDestroy(r, opts, done) {
+          we.plugins['we-plugin-menu'].publishUpdate(done);
+        }
+      }
     }
   };
 };

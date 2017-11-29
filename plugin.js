@@ -2,6 +2,8 @@
  * We.js menu plugin main file
  */
 
+const sync = require('./lib/sync.js');
+
 module.exports = function loadPlugin(projectPath, Plugin) {
   const plugin = new Plugin(__dirname);
 
@@ -280,24 +282,10 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       .catch(done);
     });
 
-    we.db.models.menu.findAll({
-      include: [{ all:true }]
-    })
-    .then( (r)=> {
-      if (!r) {
-        done();
-        return null;
-      }
-
-      for (let i = 0; i < r.length; i++) {
-        we.menu[r[i].name] = r[i];
-      }
-
-      done();
-      return null;
-    })
-    .catch(done);
+    plugin.reloadAllCachedMenus(done);
   });
+
+  sync.init(plugin);
 
   return plugin;
 };
