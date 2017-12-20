@@ -3,22 +3,19 @@
     <label for="widget-form-{{type}}-title">{{t 'title'}}</label>
     <input name="title" value="{{title}}" type="text" class="form-control" id="widget-form-{{type}}-title" placeholder="{{t 'widget.title'}}">
   </div>
-
   <div class="form-group">
     <label for="widget-form-{{type}}-menu">{{t 'menus'}}</label>
     <select name="menu" id="widget-form-{{type}}-menu" class="form-control">
       {{#each menu}}
-        {{#ifCond ../configuration.menu @key}}
-          <option value="{{@key}}" selected="selected">{{@key}}</option>
+        {{#ifCond ../configuration.menu id}}
+          <option value="{{id}}" selected="selected">{{name}}</option>
         {{else}}
-          <option value="{{@key}}">{{@key}}</option>
+          <option value="{{id}}">{{name}}</option>
         {{/ifCond}}
       {{/each}}
     </select>
   </div>
-
   {{{controllFields}}}
-
   {{#if id}}
     <input type="hidden" name="id" value="{{id}}">
     <button type="submit" class="btn btn-primary">Save</button>
