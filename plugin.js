@@ -158,6 +158,36 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       responseType  : 'json'
     }
   });
+  /**
+   * Preload menus selected with systemSettings configuration
+   *
+   * @param  {Object}   req  Express.js request
+   * @param  {Object}   res  Express.js response
+   * @param  {Function} next Callback
+   */
+  plugin.preloadMenus = function preloadMenus(req, res, next) {
+    const ss = req.we.systemSettings;
+    const l = res.locals;
+
+    l.menuMain = plugin.getMenuWithID(ss.menuMainId);
+    l.menuSecondary = plugin.getMenuWithID(ss.menuSecondaryId);
+    l.menuFooter = plugin.getMenuWithID(ss.menuFooterId);
+    l.menuSocial = plugin.getMenuWithID(ss.menuSocialId);
+    l.menuAuthenticated = plugin.getMenuWithID(ss.menuAuthenticatedId);
+
+    next();
+  };
+  plugin.getMenuWithID = function getMenuWithID(id) {
+    if (!id) return null;
+
+    for (let name in plugin.we.menu) {
+      if (plugin.we.menu[name].id == id) {
+        return plugin.we.menu[name];
+      }
+    }
+
+    return null;
+  };
 
   // set menu class after load menu
   plugin.events.on('we:after:load:plugins', function (we) {
@@ -166,6 +196,13 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     we.menu = {};
 
     we.events.emit('we-plugin-menu:after:set:menu:class', we);
+  });
+
+
+  plugin.events.on('we:after:load:express', (we)=> {
+    if (we.systemSettings) {
+      we.express.use(plugin.preloadMenus);
+    }
   });
 
   plugin.hooks.on('we:router:request:after:load:context', function (data, done) {
