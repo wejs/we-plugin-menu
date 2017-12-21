@@ -200,7 +200,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
 
 
   plugin.events.on('we:after:load:express', (we)=> {
-    if (we.systemSettings) {
+    if (we.plugins['we-plugin-db-system-settings']) {
       we.express.use(plugin.preloadMenus);
     }
   });
