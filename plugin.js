@@ -51,7 +51,6 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       },
       authenticatedUserMenu(req) {
         return {
-          class: 'nav navbar-nav navbar-right',
           links: [{
             id: 'user',
             href: '/user/' + req.user.id,
