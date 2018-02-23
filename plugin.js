@@ -260,62 +260,68 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     // skip menu cache if views plugin dont are instaled:
     if (!we.plugins['we-plugin-view']) return done();
 
-    we.db.models.menu.addHook('afterCreate', 'addToMenuCache', function (r, opts, done){
+    we.db.models.menu.addHook('afterCreate', 'addToMenuCache', function (r) {
       we.menu[r.name] = r;
-      done();
     });
 
-    we.db.models.menu.addHook('afterUpdate', 'updateMenuCache', function (r, opts, done){
+    we.db.models.menu.addHook('afterUpdate', 'updateMenuCache', function (r) {
       we.menu[r.name] = r;
-      done();
     });
 
-    we.db.models.menu.addHook('afterDestroy', 'removeFromMenuCache', function (r, opts, done) {
+    we.db.models.menu.addHook('afterDestroy', 'removeFromMenuCache', function (r) {
       delete we.menu[r.name];
-      done();
     });
 
-    we.db.models.link.addHook('afterCreate', 'addToMenuCache', function (r, opts, done){
-      // update the menu after create link
-      we.db.models.menu.findOne({
-        where: { id: r.menuId },
-        include: [{ all: true }]
-      })
-      .then( (r)=> {
-        we.menu[r.name] = r;
-        done();
-        return null;
-      })
-      .catch(done);
+    we.db.models.link.addHook('afterCreate', 'addToMenuCache', function (r) {
+      return new Promise( (resolve, reject)=> {
+        // update the menu after create link
+        we.db.models.menu
+        .findOne({
+          where: { id: r.menuId },
+          include: [{ all: true }]
+        })
+        .then( (r)=> {
+          we.menu[r.name] = r;
+          resolve();
+          return null;
+        })
+        .catch(reject);
+      });
     });
 
-    we.db.models.link.addHook('afterUpdate', 'updateLinkInMenuCache', function (r, opts, done){
-      // update the menu link after update link
-      // TODO change to only update this link inside the menu
-      we.db.models.menu.findOne({
-        where: { id: r.menuId },
-        include: [{ all: true }]
-      })
-      .then( (r)=> {
-        we.menu[r.name] = r;
-        done();
-        return null;
-      })
-      .catch(done);
+    we.db.models.link.addHook('afterUpdate', 'updateLinkInMenuCache', function (r) {
+      return new Promise( (resolve, reject)=> {
+        // update the menu link after update link
+        // TODO change to only update this link inside the menu
+        we.db.models.menu
+        .findOne({
+          where: { id: r.menuId },
+          include: [{ all: true }]
+        })
+        .then( (r)=> {
+          we.menu[r.name] = r;
+          resolve();
+          return null;
+        })
+        .catch(reject);
+      });
     });
 
-    we.db.models.link.addHook('afterDestroy', 'removeFromMenuCache', function (r, opts, done) {
-     // update the menu after delete link
-      we.db.models.menu.findOne({
-        where: { id: r.menuId },
-        include: [{ all: true }]
-      })
-      .then( (r)=> {
-        we.menu[r.name] = r;
-        done();
-        return null;
-      })
-      .catch(done);
+    we.db.models.link.addHook('afterDestroy', 'removeFromMenuCache', function (r) {
+      return new Promise( (resolve, reject)=> {
+        // update the menu after delete link
+        we.db.models.menu
+        .findOne({
+          where: { id: r.menuId },
+          include: [{ all: true }]
+        })
+        .then( (r)=> {
+          we.menu[r.name] = r;
+          resolve();
+          return null;
+        })
+        .catch(reject);
+      });
     });
 
     plugin.reloadAllCachedMenus(done);

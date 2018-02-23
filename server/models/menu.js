@@ -28,16 +28,30 @@ module.exports = function Model(we) {
     options: {
       titleField: 'name',
       classMethods: {},
-
       hooks: {
-        afterCreate(r, opts, done) {
-          we.plugins['we-plugin-menu'].publishUpdate(done);
+        afterCreate() {
+          return new Promise( (resolve, reject)=> {
+            we.plugins['we-plugin-menu'].publishUpdate( (err)=> {
+              if (err) return reject(err);
+              resolve();
+            });
+          });
         },
-        afterUpdate(r, opts, done) {
-          we.plugins['we-plugin-menu'].publishUpdate(done);
+        afterUpdate() {
+         return new Promise( (resolve, reject)=> {
+            we.plugins['we-plugin-menu'].publishUpdate( (err)=> {
+              if (err) return reject(err);
+              resolve();
+            });
+          });
         },
-        afterDestroy(r, opts, done) {
-          we.plugins['we-plugin-menu'].publishUpdate(done);
+        afterDestroy() {
+         return new Promise( (resolve, reject)=> {
+            we.plugins['we-plugin-menu'].publishUpdate( (err)=> {
+              if (err) return reject(err);
+              resolve();
+            });
+          });
         }
       }
     }
