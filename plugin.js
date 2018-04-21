@@ -327,7 +327,13 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     plugin.reloadAllCachedMenus(done);
   });
 
-  sync.init(plugin);
+  plugin.we.utils.mkdirp( plugin.we.projectPath+'/files', (err)=> {
+    if (err) {
+      return plugin.we.log.error('we-plugin-menu:create:files:folder', err);
+    } else {
+      sync.init(plugin);
+    }
+  });
 
   return plugin;
 };
