@@ -3,7 +3,7 @@
  *
  * render one menu
  *
- * usage:  {{{we-menu menuObject}}}
+ * usage:  {{{we-menu menuObject class="" liClass="" aClass="" submenuTemplate="" locals=locals}}}
  */
 
 module.exports = function(we) {
@@ -16,8 +16,16 @@ module.exports = function(we) {
     // get req
     const req = locals.req;
 
-    if (!(menu instanceof we.class.Menu) )
+    if (!(menu instanceof we.class.Menu) ) {
       menu = new we.class.Menu(menu);
+      menu.liClass = options.hash.liClass;
+      menu.aClass = options.hash.aClass;
+    }
+
+    if (options.hash.submenuTemplate) {
+      menu.submenuTemplate = options.hash.submenuTemplate;
+    }
+
     // check permission access
     if (menu.roles) {
       let can = false;
