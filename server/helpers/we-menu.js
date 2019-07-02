@@ -3,7 +3,14 @@
  *
  * render one menu
  *
- * usage:  {{{we-menu menuObject class="" liClass="" aClass="" submenuTemplate="" locals=locals}}}
+ * usage:  {{{we-menu menuObject
+ *            class=""
+ *            liClass=""
+ *            aClass=""
+ *            liTag=""
+ *            submenuTemplate=""
+ *            locals=locals
+ *         }}}
  */
 
 module.exports = function(we) {
@@ -18,8 +25,9 @@ module.exports = function(we) {
 
     if (!(menu instanceof we.class.Menu) ) {
       menu = new we.class.Menu(menu);
-      menu.liClass = options.hash.liClass;
-      menu.aClass = options.hash.aClass;
+      if (options.hash.liClass) menu.liClass = options.hash.liClass;
+      if (options.hash.aClass) menu.aClass = options.hash.aClass;
+      if (typeof options.hash.liTag == 'string') menu.liTag = options.hash.liTag;
     }
 
     if (options.hash.submenuTemplate) {
