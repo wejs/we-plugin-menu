@@ -168,11 +168,31 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     const ss = req.we.systemSettings;
     const l = res.locals;
 
-    l.menuMain = plugin.getMenuWithID(ss.menuMainId);
-    l.menuSecondary = plugin.getMenuWithID(ss.menuSecondaryId);
-    l.menuFooter = plugin.getMenuWithID(ss.menuFooterId);
-    l.menuSocial = plugin.getMenuWithID(ss.menuSocialId);
-    l.menuAuthenticated = plugin.getMenuWithID(ss.menuAuthenticatedId);
+    Object.defineProperty(l, 'menuMain', {
+      get: function getMenu() {
+        return plugin.getMenuWithID(ss.menuMainId);
+      }
+    });
+    Object.defineProperty(l, 'menuSecondary', {
+      get: function getMenu() {
+        return plugin.getMenuWithID(ss.menuSecondaryId);
+      }
+    });
+    Object.defineProperty(l, 'menuFooter', {
+      get: function getMenu() {
+        return plugin.getMenuWithID(ss.menuFooterId);
+      }
+    });
+    Object.defineProperty(l, 'menuSocial', {
+      get: function getMenu() {
+        return plugin.getMenuWithID(ss.menuSocialId);
+      }
+    });
+    Object.defineProperty(l, 'menuAuthenticated', {
+      get: function getMenu() {
+        return plugin.getMenuWithID(ss.menuAuthenticatedId);
+      }
+    });
 
     next();
   };
@@ -283,7 +303,6 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         .then( (r)=> {
           we.menu[r.name] = r;
           resolve();
-          return null;
         })
         .catch(reject);
       });
@@ -301,7 +320,6 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         .then( (r)=> {
           we.menu[r.name] = r;
           resolve();
-          return null;
         })
         .catch(reject);
       });
@@ -318,7 +336,6 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         .then( (r)=> {
           we.menu[r.name] = r;
           resolve();
-          return null;
         })
         .catch(reject);
       });
