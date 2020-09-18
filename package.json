@@ -12,10 +12,8 @@
   "homepage": "https://github.com/wejs/we-plugin-menu",
   "wejs": {
     "dependencies": {
-      "we-plugin-acl": true
+      "we-plugin-acl": true,
+      "we-plugin-sys-pubsub": true
     }
-  },
-  "dependencies": {
-    "chokidar": "^1.7.0"
   }
 }
