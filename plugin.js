@@ -157,6 +157,21 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       responseType  : 'json'
     }
   });
+
+  /**
+   * Default publish update that will be overriden in sync
+   */
+  plugin.publishUpdate = function(cb) {
+    cb();
+  };
+
+  /**
+   * Default reload cached menus that will be overriden in sync
+   */
+  plugin.reloadAllCachedMenus = function(cb) {
+    cb();
+  };
+
   /**
    * Preload menus selected with systemSettings configuration
    *
@@ -344,12 +359,8 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     plugin.reloadAllCachedMenus(done);
   });
 
-  plugin.we.utils.mkdirp( plugin.we.projectPath+'/files', (err)=> {
-    if (err) {
-      return plugin.we.log.error('we-plugin-menu:create:files:folder', err);
-    } else {
-      sync.init(plugin);
-    }
+  plugin.events.on('we:after:init:sysPubsub', ()=> {
+    sync.init(plugin);
   });
 
   return plugin;
